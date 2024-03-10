@@ -5,7 +5,7 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Setter
-public class BoardResponseDTO {
+public class BoardResponseDto {
     private Long boardId;
     private String userId;
     private String title;
