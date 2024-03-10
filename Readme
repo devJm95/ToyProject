@@ -1,0 +1,33 @@
+## Board Project
+
+1. project spec
+- JAVA17 (amazon correto)
+ - file -> settings
+ - file -> structure
+- Spring 3.2.3
+- SERVER : AWS EC2
+- DB : AWS RDS (MARIA DB)
+- CI/CD (github action)-> s3 zip -> ec2 codedeploy -> deploy
+
+
+2. project contents
+- Board
+    - CRUD (save, findAll, findById, DeleteById) -> querydsl
+        -> repository impl
+    - QueryDsl
+- User
+    - Spring security
+        -> 인증 /인가 공부
+        -> OAuth2 방식으로 구현
+    - SNS Login (Google)
+
+- 로그인 -> JWT토큰발급 -> header에 JWT토큰포함해서 -> Board CRUD (작성자들어가게) -> 인가된사용자 게시판등록할수있게
+- Request DTO (EndPoint), Response DTO (Repository) (CQRS 패턴)
+- TestCode 작성해보기
+- 주석
+
+Front -> Swagger
+
+1순위 : Board CRUD 구현 / User SIGNUP/SIGNIN (SNS포함) 구현
+2순위 : AWS RDS연결
+3순위 : S3 / ec2 , CICD
