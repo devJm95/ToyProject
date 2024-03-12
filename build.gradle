@@ -20,11 +20,6 @@ configurations {
 		extendsFrom annotationProcessor
 	}
 }
-buildscript { // querydsl
-	ext {
-		queryDslVersion = "5.0.0"
-	}
-}
 
 repositories {
 	mavenCentral()
