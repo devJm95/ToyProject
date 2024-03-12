@@ -39,8 +39,8 @@ public class BoardController {
 //    }
 
     // update
-//    @PutMapping
-//    public BoardResponseDto insertBoard(BoardRequestDto boardRequestDto){
-//        return boardService.insertBoard(boardDto);
+//    @PutMapping("${id}")
+//    public BoardResponseDto updateBoard(@PathVariable("id") int id){
+//        return boardService.updateBoard(id);
 //    }
 }
