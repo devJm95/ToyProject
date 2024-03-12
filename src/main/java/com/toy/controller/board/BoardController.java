@@ -1,26 +1,33 @@
 package com.toy.controller.board;
 
-import com.toy.dto.board.BoardRequestDto;
+import com.toy.dto.board.BoardDto;
 import com.toy.service.board.BoardService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+import java.util.List;
+
+
+@RestController
 @RequestMapping("/board")
 public class BoardController {
 
-    private BoardService boardService;
+    @Autowired
+    BoardService boardService;
 
     // insert
-    @PostMapping
-    public String insertBoard(@RequestBody BoardRequestDto boardRequestDTO) {
-        boardService.insertBoard(boardRequestDTO);
-        return "Response는 뭘로?";
-    }
+//    @PostMapping("/insert")
+//    public String insertBoard() {
+//        boardService.insertBoard();
+//        return "Response는 뭘로?";
+//    }
 
     // selectAll
+    @GetMapping("/selectAll")
+    public List<BoardDto> selectAll(){
+        return boardService.selectAll();
+    }
 
     // selectOne
 

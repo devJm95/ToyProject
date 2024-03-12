@@ -1,12 +1,17 @@
 package com.toy.dto.board;
 
 import com.querydsl.core.annotations.QueryProjection;
-import lombok.Data;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Data
 public class BoardDto {
+
+    @Id
+    @GeneratedValue
     private Long boardId;
     private String userId;
     private String title;
@@ -22,4 +27,5 @@ public class BoardDto {
         this.cDate = cDate;
         this.uDate = uDate;
     }
+
 }
