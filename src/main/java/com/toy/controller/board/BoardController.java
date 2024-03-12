@@ -15,7 +15,11 @@ public class BoardController {
 
     private final BoardService boardService;
 
-    // insert
+    /**
+     * insertBoard
+     * @param boardRequestDto
+     * @return BoardResponseDto
+     */
 //    @PostMapping
 //    public BoardResponseDto insertBoard(BoardRequestDto boardRequestDto){
 //        return boardService.insertBoard(boardDto);
