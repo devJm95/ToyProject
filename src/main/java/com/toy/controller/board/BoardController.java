@@ -44,3 +44,5 @@ public class BoardController {
 //        return boardService.updateBoard(id);
 //    }
 }
+
+// TODO : BoardRequestDto 여기에만들기

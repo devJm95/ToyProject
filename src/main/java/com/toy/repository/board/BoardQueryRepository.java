@@ -6,6 +6,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface BoardRepositoryCustom  {
+public interface BoardQueryRepository  {
     List<BoardDto> selectAll();
 }
+
+// TODO : BoardResponseDto 여기에만들기
