@@ -16,6 +16,7 @@ public class BoardService {
     private final BoardRepository boardRepository;
 
     public List<BoardDto> selectAll() {
+        // TODO : 여기서 entity를 DTO화해서 리턴하게 수정하기
         return boardRepository.selectAll();
     }
 }
