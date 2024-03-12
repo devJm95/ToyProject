@@ -12,13 +12,8 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class BoardService {
-    
-    @Autowired
-    BoardRepository boardRepository;
 
-//    public void insertBoard() {
-//        boardRepository.insertBoard();
-//    }
+    private final BoardRepository boardRepository;
 
     public List<BoardDto> selectAll() {
         return boardRepository.selectAll();
