@@ -1,12 +1,11 @@
 package com.toy.controller.board;
 
-import com.toy.dto.board.BoardDto;
+import com.toy.dto.board.BoardDTO;
 import com.toy.service.board.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
 
 @RestController
 @RequestMapping("/board")
@@ -21,11 +20,11 @@ public class BoardController {
 //        return boardService.insertBoard(boardDto);
 //    }
 
-    // selectAll
+    // 게시판 조회
     // TODO : selectAll 제거 (rest api 기본원칙은 행위는 적지않음)
     @GetMapping
-    public List<BoardDto> selectAll(){
-        return boardService.selectAll();
+    public List<BoardDTO> getBaordList(){
+        return boardService.getBaordList();
     }
 
     // selectOne

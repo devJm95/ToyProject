@@ -8,7 +8,9 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Data
-public class BoardDto {
+@NoArgsConstructor
+@AllArgsConstructor
+public class BoardDTO {
 
     @Id
     @GeneratedValue
@@ -20,7 +22,7 @@ public class BoardDto {
     private LocalDateTime uDate;
 
     @QueryProjection
-    public BoardDto(Long boardId, String title, String content, LocalDateTime cDate, LocalDateTime uDate) {
+    public BoardDTO(Long boardId, String title, String content, LocalDateTime cDate, LocalDateTime uDate) {
         this.boardId = boardId;
         this.title = title;
         this.content = content;
