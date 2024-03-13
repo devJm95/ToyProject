@@ -2,13 +2,13 @@
 
 1. project spec
 - JAVA17 (amazon correto)
- - file -> settings
- - file -> structure
+  - file -> settings
+  - file -> structure
 - Spring 3.2.3
 - SERVER : AWS EC2
 - DB : AWS RDS (MARIA DB)
 - CI/CD (github action)-> s3 zip -> ec2 codedeploy -> deploy
-
+- TestCode
 
 2. project contents
 - Board
