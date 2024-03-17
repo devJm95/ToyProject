@@ -33,16 +33,17 @@ public class BoardController {
     }
 
     // selectOne
-//    @GetMapping("${id}")
-//    public List<BoardDto> selectAll(@PathVariable("id") int id){
-//        return boardService.selectOne(id);
-//    }
+    @GetMapping("/{id}")
+    public ResponseEntity getBoardOne(@PathVariable("id") Long id){
+        Board result = boardService.boardOne(id);
+        return ResponseEntity.ok().body(result);
+    }
 
     // update
-//    @PutMapping("${id}")
-//    public BoardResponseDto updateBoard(@PathVariable("id") int id){
-//        return boardService.updateBoard(id);
-//    }
+    @PutMapping("${id}")
+    public BoardResponseDto updateBoard(@PathVariable("id") int id,
+                                        @RequestBody BoardRequestDTO boardRequestDto){
+        Board board = boardService.updateBoard(id, boardRequestDto);
+        return null;
+    }
 }
-
-// TODO : BoardRequestDto 여기에만들기

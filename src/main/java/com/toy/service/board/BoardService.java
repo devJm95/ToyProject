@@ -2,12 +2,10 @@ package com.toy.service.board;
 
 import com.toy.dto.board.BoardDTO;
 import com.toy.dto.board.BoardRequestDTO;
-import com.toy.dto.board.BoardResponseDto;
 import com.toy.entity.board.Board;
 import com.toy.repository.board.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,5 +29,13 @@ public class BoardService {
     public Board insertBoard(BoardRequestDTO boardRequestDto) {
         Board board = Board.toEntity(boardRequestDto);
         return boardRepository.save(board);
+    }
+
+    public Board boardOne(Long id) {
+        return boardRepository.findById(id).orElse(null);
+    }
+
+    public Board updateBoard(int id, BoardRequestDTO boardRequestDto) {
+        return null;
     }
 }
