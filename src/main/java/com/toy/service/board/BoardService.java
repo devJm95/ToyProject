@@ -27,8 +27,8 @@ public class BoardService {
                 collect(Collectors.toList());
     }
 
-    public Board insertBoard(BoardDTO boardDto) {
-        Board board = modelMapper.map(boardDto, Board.class);
+    public Board insertBoard(BoardRequestDTO boardRequestDto) {
+        Board board = modelMapper.map(boardRequestDto, Board.class);
         return boardRepository.save(board);
     }
 }

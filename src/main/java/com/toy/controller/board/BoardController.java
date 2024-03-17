@@ -21,8 +21,8 @@ public class BoardController {
 
      //insert
     @PostMapping
-    public ResponseEntity insertBoard(@RequestBody BoardDTO boardDto){
-        Board result = boardService.insertBoard(boardDto);
+    public ResponseEntity insertBoard(@RequestBody BoardRequestDTO boardRequestDto){
+        Board result = boardService.insertBoard(boardRequestDto);
         return ResponseEntity.ok().body(result);
     }
 
