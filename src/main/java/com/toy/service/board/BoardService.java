@@ -1,6 +1,8 @@
 package com.toy.service.board;
 
 import com.toy.dto.board.BoardDTO;
+import com.toy.dto.board.BoardRequestDTO;
+import com.toy.dto.board.BoardResponseDto;
 import com.toy.entity.board.Board;
 import com.toy.repository.board.BoardRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,5 +25,10 @@ public class BoardService {
         return  result.stream().
                 map(board -> modelMapper.map(board, BoardDTO.class)).
                 collect(Collectors.toList());
+    }
+
+    public Board insertBoard(BoardDTO boardDto) {
+        Board board = modelMapper.map(boardDto, Board.class);
+        return boardRepository.save(board);
     }
 }
