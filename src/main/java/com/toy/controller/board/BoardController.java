@@ -18,8 +18,7 @@ public class BoardController {
 
     private final BoardService boardService;
 
-
-     //insert
+    //insert
     @PostMapping
     public ResponseEntity insertBoard(@RequestBody BoardRequestDTO boardRequestDto){
         Board result = boardService.insertBoard(boardRequestDto);
@@ -40,8 +39,10 @@ public class BoardController {
 //    }
 
     // update
-//    @PutMapping
-//    public BoardResponseDto insertBoard(BoardRequestDto boardRequestDto){
-//        return boardService.insertBoard(boardDto);
+//    @PutMapping("${id}")
+//    public BoardResponseDto updateBoard(@PathVariable("id") int id){
+//        return boardService.updateBoard(id);
 //    }
 }
+
+// TODO : BoardRequestDto 여기에만들기

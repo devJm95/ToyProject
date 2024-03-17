@@ -7,6 +7,7 @@ import com.toy.entity.board.Board;
 import com.toy.repository.board.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

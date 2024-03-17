@@ -1,8 +1,10 @@
-package com.toy.repository.board.custom;
+package com.toy.repository.board;
 
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
-public interface BoardRepositoryCustom {
+public interface BoardQueryRepository {
     //List<BoardDto> getBaordList();
 }

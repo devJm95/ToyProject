@@ -1,10 +1,10 @@
-package com.toy.repository.board.custom;
+package com.toy.repository.board.orm;
 
+import com.toy.repository.board.BoardQueryRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class BoardRepositoryCustomImpl implements BoardRepositoryCustom{
-
+public class BoardQueryRepositoryImpl implements BoardQueryRepository {
 
 //    @Override
 //    public List<BoardDto> getBaordList() {
