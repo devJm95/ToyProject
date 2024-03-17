@@ -29,7 +29,7 @@ public class BoardService {
     }
 
     public Board insertBoard(BoardRequestDTO boardRequestDto) {
-        Board board = modelMapper.map(boardRequestDto, Board.class);
+        Board board = Board.toEntity(boardRequestDto);
         return boardRepository.save(board);
     }
 }
