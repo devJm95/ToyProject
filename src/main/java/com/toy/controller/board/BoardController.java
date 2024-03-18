@@ -2,7 +2,6 @@ package com.toy.controller.board;
 
 import com.toy.dto.board.BoardDTO;
 import com.toy.dto.board.BoardRequestDTO;
-import com.toy.dto.board.BoardResponseDto;
 import com.toy.entity.board.Board;
 import com.toy.service.board.BoardService;
 import lombok.RequiredArgsConstructor;
@@ -40,10 +39,16 @@ public class BoardController {
     }
 
     // update
-    @PutMapping("${id}")
-    public BoardResponseDto updateBoard(@PathVariable("id") int id,
+    @PutMapping("/{id}")
+    public ResponseEntity updateBoard(@PathVariable("id") Long id,
                                         @RequestBody BoardRequestDTO boardRequestDto){
         Board board = boardService.updateBoard(id, boardRequestDto);
-        return null;
+        return ResponseEntity.ok().body(board);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteBoardOne(@PathVariable("id") Long id){
+        boardService.deleteBoardOne(id);
+        return ResponseEntity.ok().build();
     }
 }

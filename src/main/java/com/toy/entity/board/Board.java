@@ -25,7 +25,7 @@ public class Board {
 
     public static Board toEntity(BoardRequestDTO boardRequestDTO){
         return Board.builder()
-                .userId(boardRequestDTO.getUserId())
+                .boardId(boardRequestDTO.getBoardId())
                 .title(boardRequestDTO.getTitle())
                 .content(boardRequestDTO.getContent())
                 .cDate(LocalDateTime.now())
