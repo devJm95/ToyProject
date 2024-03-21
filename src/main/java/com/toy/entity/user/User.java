@@ -1,12 +1,13 @@
 package com.toy.entity.user;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import com.toy.entity.board.Board;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+
+import java.util.List;
 
 
 @Data
@@ -25,4 +26,5 @@ public class User {
     private String userEmail;
     private String userTel;
     private String userYn;
+
 }
