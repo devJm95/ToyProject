@@ -6,7 +6,7 @@
   - file -> structure
 - Spring 3.2.3
 - SERVER : AWS EC2
-- DB : AWS RDS (MARIA DB)
+- DB : AWS RDS (MySql)
 - CI/CD (github action)-> s3 zip -> ec2 codedeploy -> deploy
 - TestCode
 
