@@ -31,13 +31,15 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
 	// MariaDB
-	implementation 'org.mariadb.jdbc:mariadb-java-client:2.1.2'
+	//implementation 'org.mariadb.jdbc:mariadb-java-client:2.1.2'
+	//runtimeOnly 'com.mysql:mysql-connector-j'
+	implementation 'mysql:mysql-connector-java:8.0.27'
 
 	// Lombok
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 
-	implementation 'org.mariadb.jdbc:mariadb-java-client:2.1.2'
+
 	implementation 'org.modelmapper:modelmapper:2.4.2'
 
 	// QueryDSL
