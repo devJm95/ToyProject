@@ -6,8 +6,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.*;
 
-import java.time.LocalDateTime;
-
 @Entity
 @Getter
 @NoArgsConstructor
@@ -20,16 +18,12 @@ public class Board {
     private String userId;
     private String title;
     private String content;
-    private LocalDateTime cDate;
-    private LocalDateTime uDate;
 
     public static Board toEntity(BoardRequestDTO boardRequestDTO){
         return Board.builder()
                 .boardId(boardRequestDTO.getBoardId())
                 .title(boardRequestDTO.getTitle())
                 .content(boardRequestDTO.getContent())
-                .cDate(LocalDateTime.now())
-                .uDate(LocalDateTime.now())
                 .build();
     }
 }

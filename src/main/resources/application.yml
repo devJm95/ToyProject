@@ -13,20 +13,14 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: https://your-authorization-server.com
+          issuer-uri: https://localhost:8080
       client:
         registration:
           google:
-            client-id: YOUR_CLIENT_ID
-            client-secret: YOUR_CLIENT_SECRET
+            client-id:
+            client-secret:
             scope: profile,email
-            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
-        provider:
-          google:
-            authorization-uri: https://accounts.google.com/o/oauth2/auth
-            token-uri: https://www.googleapis.com/oauth2/v3/token
-            user-info-uri: https://www.googleapis.com/oauth2/v3/userinfo
-            user-name-attribute: name
+            #redirect_uri: http://localhost:8080/oauth2/callback/google
 
 logging:
   level:
