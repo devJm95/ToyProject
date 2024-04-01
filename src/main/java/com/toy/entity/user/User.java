@@ -1,30 +1,27 @@
 package com.toy.entity.user;
 
-import com.toy.entity.board.Board;
+import com.toy.Role;
+import com.toy.entity.BaseTimeEntity;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
-import java.util.List;
-
-
-@Data
+@Entity
+@Getter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@ToString(of = {"userSeq", "userId", "userPw", "userName", "userEmail", "userTel", "userYn"})
-public class User {
+public class User extends BaseTimeEntity {
 
     @Id
     @GeneratedValue
     @Column(name = "user_seq")
     private Long userSeq;
-    //@Column(name=USER_ID)
     private String userId;
     private String userPw;
-    private String userName;
-    private String userEmail;
-    private String userTel;
-    private String userYn;
+    private String userNm;
 
+    private Role role;
+
+    private String provider;
+    private String providerId;
 }
