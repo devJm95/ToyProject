@@ -13,13 +13,22 @@ import java.util.Date;
 @Slf4j
 @Component
 public class JwtTokenProvider {
+
+    private static String jwtSecret;
+
     @Value("${jwt.secret}")
-    private String jwtSecret;
+    public void setJwtSecret(String jwtSecret) {
+        this.jwtSecret = jwtSecret;
+    }
 
+    private static int jwtExpirationMs;
     @Value("${jwt.expiration}")
-    private int jwtExpirationMs;
+    public void setJwtExpirationMs(int jwtExpirationMs) {
+        this.jwtExpirationMs = jwtExpirationMs;
+    }
 
-    public String generateToken(String username) {
+
+    public static String generateToken(String username) {
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + jwtExpirationMs);
 
