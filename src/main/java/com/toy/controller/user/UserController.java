@@ -25,7 +25,7 @@ public class UserController {
     }
 
     @PostMapping("/sign-in")
-    public ResponseEntity login(JoinRequest request){
+    public ResponseEntity login(@RequestBody JoinRequest request){
         User user = userService.login(request);
         return ResponseEntity.ok().build();
     }
