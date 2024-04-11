@@ -19,9 +19,16 @@ public class User extends BaseTimeEntity {
     private String userId;
     private String userPw;
     private String userNm;
+    private String email;
 
     private Role role;
 
     private String provider;
     private String providerId;
+
+    public User update(String userNm, String email) {
+        this.userNm = userNm;
+        this.email = email;
+        return this;
+    }
 }
