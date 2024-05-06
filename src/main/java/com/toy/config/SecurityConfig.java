@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,12 +21,21 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class SecurityConfig {
 
     private final JwtTokenProvider jwtTokenProvider;
+    private final OAuth2SuccessHandler oAuth2SuccessHandler;
     private final OAuth2Service oAuth2Service;
 
     // 비밀번호 암호화
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    // security 를 적용하지 않을 리소스
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return web -> web.ignoring()
+                // error endpoint를 열어줘야 함, favicon.ico 추가!
+                .requestMatchers("/error", "/favicon.ico");
     }
 
     @Bean
@@ -35,6 +45,7 @@ public class SecurityConfig {
                 .authorizeRequests(
                         (auth) -> auth
                             .requestMatchers("/board/**").authenticated()
+                            .requestMatchers("/login/**").permitAll()
                             .requestMatchers("/**").permitAll()
 //                            .anyRequest().authenticated()
                             .anyRequest().permitAll()
@@ -42,7 +53,8 @@ public class SecurityConfig {
 //                .oauth2Login(Customizer.withDefaults())
                 .oauth2Login((oauth2) -> oauth2.
                         userInfoEndpoint(userInfo -> userInfo
-                                .userService(oAuth2Service)))
+                                .userService(oAuth2Service))
+                        .successHandler(oAuth2SuccessHandler))
 //                .logout((logout) -> logout.logoutSuccessUrl("/"))
                 .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .formLogin((formLogin) -> formLogin.disable())

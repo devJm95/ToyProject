@@ -1,6 +1,5 @@
 package com.toy.config;
 
-import com.toy.dto.jwt.JwtTotenDTO;
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,6 +20,7 @@ import java.util.stream.Collectors;
 public class JwtTokenProvider {
 
     private static String jwtSecret;
+    private static final String KEY_ROLE = "role";
 
     @Value("${jwt.secret}")
     public void setJwtSecret(String jwtSecret) {
@@ -33,7 +33,25 @@ public class JwtTokenProvider {
         this.jwtExpirationMs = jwtExpirationMs;
     }
 
+    public String generateToken(Authentication authentication) {
+        Date now = new Date();
+        Date expiredDate = new Date(now.getTime() + jwtExpirationMs);
 
+        String authorities = authentication.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.joining());
+
+        return Jwts.builder()
+                .setSubject(authentication.getName())
+                .claim(KEY_ROLE, authorities)
+                .setIssuedAt(now)
+                .setExpiration(expiredDate)
+                .signWith(SignatureAlgorithm.HS512, jwtSecret)
+                .compact();
+    }
+
+
+   /*
     public JwtTotenDTO generateToken(Authentication authentication) {
         // 권한 가져오기
         String authorities = authentication.getAuthorities().stream()
@@ -63,7 +81,7 @@ public class JwtTokenProvider {
                 .refreshToken(refreshToken)
                 .build();
     }
-
+*/
     public boolean validateToken(String authToken) {
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);

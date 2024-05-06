@@ -22,6 +22,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @RequiredArgsConstructor
 public class OAuth2Service implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
     private final UserRepository userRepository;
+//    private final CustomAuthorityUtils authorityUtils;
 
 
     @Override
@@ -29,8 +30,18 @@ public class OAuth2Service implements OAuth2UserService<OAuth2UserRequest, OAuth
         OAuth2UserService oAuth2UserService = new DefaultOAuth2UserService();
         OAuth2User oAuth2User = oAuth2UserService.loadUser(userRequest);
 
-        // 로그인을 수행한 서비스의 이름
+        Map<String, Object> originAttributes = oAuth2User.getAttributes();
+
+//        // 로그인을 수행한 서비스의 이름
         String registrationId = userRequest.getClientRegistration().getRegistrationId();
+//
+//        OAuthAttributes attributes = OAuthAttributes.of(registrationId, originAttributes);
+//
+//        User user = saveOrUpdate(attributes);
+//        String email = user.getEmail();
+//        List<GrantedAuthority> authorities = authorityUtils.createAuthorities(email);
+//
+//        return new OAuth2CustomUser(registrationId, originAttributes, authorities, email);
 
         String userNameAttributeName = userRequest
                 .getClientRegistration()
@@ -55,6 +66,15 @@ public class OAuth2Service implements OAuth2UserService<OAuth2UserRequest, OAuth
                 userNameAttributeName);
     }
 
+    public User updateOrSaveUser(JoinRequest join) {
+        User user = userRepository
+                .findUserByEmailAndProvider(join.getEmail(), join.getProvider())
+                .map(value -> value.update(join.getUserNm(), join.getEmail()))
+                .orElse(join.toEntity());
+
+        return userRepository.save(user);
+    }
+
     public Map getCustomAttribute(String registrationId,
                                   String userNameAttributeName,
                                   Map<String, Object> attributes,
@@ -68,14 +88,4 @@ public class OAuth2Service implements OAuth2UserService<OAuth2UserRequest, OAuth
 
         return customAttribute;
     }
-
-    public User updateOrSaveUser(JoinRequest join) {
-        User user = userRepository
-                .findUserByEmailAndProvider(join.getEmail(), join.getProvider())
-                .map(value -> value.update(join.getUserNm(), join.getEmail()))
-                .orElse(join.toEntity());
-
-        return userRepository.save(user);
-    }
-
 }
