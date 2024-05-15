@@ -9,22 +9,24 @@ spring:
       format_sql : true
       ddl-auto: update
     database-platform: org.hibernate.dialect.MariaDBDialect
+  profiles:
+    include: oauth
   security:
-    jwt:
-      secret: {jwt.secret}
-      expiration: 86400000 # JWT 토큰의 유효 기간 (밀리초 단위) 24시간
-      token-prefix: Bearer  # 토큰의 헤더 이름
-      header: Authorization # 토큰의 헤더에 저장될 키
-      algorithm: HS512
-      issuer-uri: https://localhost:8080
     oauth2:
-      resourceserver:
-        client:
-          registration:
-            google:
-              client-id: {client-id}
-              client-secret: {client-secret}
-              scope: profile,email
+      client:
+        registration:
+          google:
+            client-id: ${client.id}
+            client-secret: ${client.secret}
+            scope: profile,email
+            redirect-uri: "http://localhost:8080/login/oauth2/code/google"
+        jwt:
+          secret: ${jwt.secret}
+          expiration: 86400000 # JWT 토큰의 유효 기간 (밀리초 단위) 24시간
+          token-prefix: Bearer  # 토큰의 헤더 이름
+          header: Authorization # 토큰의 헤더에 저장될 키
+          algorithm: HS512
+          #issuer-uri: https://localhost:8080
 
 logging:
   level:

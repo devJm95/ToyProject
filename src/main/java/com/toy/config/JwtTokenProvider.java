@@ -1,6 +1,5 @@
 package com.toy.config;
 
-import com.toy.dto.jwt.JwtTotenDTO;
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,6 +20,7 @@ import java.util.stream.Collectors;
 public class JwtTokenProvider {
 
     private static String jwtSecret;
+    private static final String KEY_ROLE = "role";
 
     @Value("${jwt.secret}")
     public void setJwtSecret(String jwtSecret) {
@@ -34,6 +34,39 @@ public class JwtTokenProvider {
     }
 
 
+    public String generateToken(Authentication authentication) {
+        Date now = new Date();
+        Date expiredDate = new Date(now.getTime() + jwtExpirationMs);
+
+        String authorities = authentication.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.joining());
+
+        return Jwts.builder()
+                .setSubject(authentication.getName())
+                .claim(KEY_ROLE, authorities)
+                .setIssuedAt(now)
+                .setExpiration(expiredDate)
+                .signWith(SignatureAlgorithm.HS512, jwtSecret)
+                .compact();
+
+      // 로그인 시
+//    public String createAccessToken(Long userid) {
+//        // JWT payload 에 저장되는 정보단위, 보통 여기서 user를 식별하는 값을 넣는다.
+//        Claims claims = Jwts.claims().setSubject(userid.toString());
+//
+//        Date now = new Date();
+//        return Jwts.builder()
+//                .setClaims(claims) // 정보 저장
+//                .setIssuedAt(now) // 토큰 발행 시간 정보
+//                .setExpiration(new Date(now.getTime() + jwtExpirationMs)) // set Expire Time
+//                .signWith(SignatureAlgorithm.HS256, jwtSecret)  // 사용할 암호화 알고리즘과
+//                // signature 에 들어갈 secret값 세팅
+//                .compact();
+//    }
+
+
+    /*
     public JwtTotenDTO generateToken(Authentication authentication) {
         // 권한 가져오기
         String authorities = authentication.getAuthorities().stream()
@@ -63,7 +96,7 @@ public class JwtTokenProvider {
                 .refreshToken(refreshToken)
                 .build();
     }
-
+*/
     public boolean validateToken(String authToken) {
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
@@ -84,8 +117,8 @@ public class JwtTokenProvider {
                 .parseClaimsJws(token)
                 .getBody();
 
-        Collection<? extends GrantedAuthority> authorities =
-                Arrays.stream(claims.get("auth").toString().split(","))
+        Collection<? extends GrantedAuthority> authorities  =
+                Arrays.stream(claims.get("role").toString().split(","))
                         .map(authority -> new SimpleGrantedAuthority(authority))
                         .collect(Collectors.toList());
 

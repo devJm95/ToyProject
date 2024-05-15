@@ -13,13 +13,25 @@ public class JoinRequest {
     private String userPw;
     private String pwChk;
     private String userNm;
+    private String provider;
+    private String email;
+
 
     public User toEntity(String encodedPassword) {
         return User.builder()
                 .userId(this.userId)
                 .userPw(encodedPassword)
                 .userNm(this.userNm)
+                .email(this.email)
                 .role(Role.USER)
+                .build();
+    }
+
+    public User toEntity() {
+        return User.builder()
+                .userNm(this.userNm)
+                .email(this.email)
+                .provider(this.provider)
                 .build();
     }
 }

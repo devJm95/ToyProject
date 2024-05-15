@@ -16,8 +16,6 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-
-
     public User join(JoinRequest joinRequest){
         String userId = joinRequest.getUserId();
         String password = joinRequest.getUserPw();
@@ -37,7 +35,7 @@ public class UserService {
     public User login(JoinRequest request) {
         Optional<User> userOptional = userRepository.findByUserId(request.getUserId());
 
-        if (!userOptional.isEmpty()) {
+        if (userOptional.isEmpty()) {
             throw new RuntimeException("아이디가 존재하지 않습니다.");
         }
 
