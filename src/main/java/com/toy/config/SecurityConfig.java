@@ -46,7 +46,7 @@ public class SecurityConfig {
                         (auth) -> auth
                             .requestMatchers("/board/**").authenticated()
                             .requestMatchers("/login/**").permitAll()
-                            .requestMatchers("/**").permitAll()
+//                            .requestMatchers("/**").permitAll()
 //                            .anyRequest().authenticated()
                             .anyRequest().permitAll()
                 )

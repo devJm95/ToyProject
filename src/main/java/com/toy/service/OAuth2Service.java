@@ -21,27 +21,16 @@ import java.util.concurrent.ConcurrentHashMap;
 @Service
 @RequiredArgsConstructor
 public class OAuth2Service implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
-    private final UserRepository userRepository;
-//    private final CustomAuthorityUtils authorityUtils;
 
+    private final UserRepository userRepository;
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
         OAuth2UserService oAuth2UserService = new DefaultOAuth2UserService();
         OAuth2User oAuth2User = oAuth2UserService.loadUser(userRequest);
 
-        Map<String, Object> originAttributes = oAuth2User.getAttributes();
-
-//        // 로그인을 수행한 서비스의 이름
+        // 로그인을 수행한 서비스의 이름
         String registrationId = userRequest.getClientRegistration().getRegistrationId();
-//
-//        OAuthAttributes attributes = OAuthAttributes.of(registrationId, originAttributes);
-//
-//        User user = saveOrUpdate(attributes);
-//        String email = user.getEmail();
-//        List<GrantedAuthority> authorities = authorityUtils.createAuthorities(email);
-//
-//        return new OAuth2CustomUser(registrationId, originAttributes, authorities, email);
 
         String userNameAttributeName = userRequest
                 .getClientRegistration()
@@ -55,14 +44,11 @@ public class OAuth2Service implements OAuth2UserService<OAuth2UserRequest, OAuth
         JoinRequest join = OAuthAttributes.extract(registrationId, attributes);
         join.setProvider(registrationId);
 
-        updateOrSaveUser(join);
-
-        Map<String, Object> customAttribute =
-                getCustomAttribute(registrationId, userNameAttributeName, attributes, join);
+//        updateOrSaveUser(join);
 
         return new DefaultOAuth2User(
                 Collections.singleton(new SimpleGrantedAuthority("USER")),
-                customAttribute,
+                attributes,
                 userNameAttributeName);
     }
 
@@ -75,17 +61,17 @@ public class OAuth2Service implements OAuth2UserService<OAuth2UserRequest, OAuth
         return userRepository.save(user);
     }
 
-    public Map getCustomAttribute(String registrationId,
-                                  String userNameAttributeName,
-                                  Map<String, Object> attributes,
-                                  JoinRequest join) {
-        Map<String, Object> customAttribute = new ConcurrentHashMap<>();
-
-        customAttribute.put(userNameAttributeName, attributes.get(userNameAttributeName));
-        customAttribute.put("provider", registrationId);
-        customAttribute.put("name", join.getUserNm());
-        customAttribute.put("email", join.getEmail());
-
-        return customAttribute;
-    }
+//    public Map getCustomAttribute(String registrationId,
+//                                  String userNameAttributeName,
+//                                  Map<String, Object> attributes,
+//                                  JoinRequest join) {
+//        Map<String, Object> customAttribute = new ConcurrentHashMap<>();
+//
+//        customAttribute.put(userNameAttributeName, attributes.get(userNameAttributeName));
+//        customAttribute.put("provider", registrationId);
+//        customAttribute.put("name", join.getUserNm());
+//        customAttribute.put("email", join.getEmail());
+//
+//        return customAttribute;
+//    }
 }

@@ -15,8 +15,10 @@ import java.io.IOException;
 @Component
 @RequiredArgsConstructor
 public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
+
     private final JwtTokenProvider tokenProvider;
-    private static final String URI = "/auth/success";
+
+    private static final String URI = "/board";
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,

@@ -20,14 +20,14 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
     private final JwtTokenProvider jwtTokenProvider;
 
     @Override
-    public void doFilter(ServletRequest req, ServletResponse res, FilterChain filterChain)
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain)
             throws IOException, ServletException {
 
-        HttpServletRequest request = (HttpServletRequest) req;
-        HttpServletResponse response = (HttpServletResponse) res;
+//        HttpServletRequest request = (HttpServletRequest) req;
+//        HttpServletResponse response = (HttpServletResponse) res;
 
         try {
-            String authToken = resolveToken(request);
+            String authToken = resolveToken((HttpServletRequest) request);
 
             if (authToken != null && jwtTokenProvider.validateToken(authToken)) {
                 // 유효한 토큰이면 SecurityContext에 인증 정보 설정
@@ -39,11 +39,10 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
         } catch (ExpiredJwtException | UnsupportedJwtException | MalformedJwtException | SignatureException ex) {
             // 유효하지 않은 토큰 예외 처리
             // 여기서는 예외를 캐치하고 토큰이 유효하지 않다고 응답할 수 있습니다.
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            ((HttpServletResponse) response).setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
-
-        filterChain.doFilter(req, res);
+        filterChain.doFilter(request, response);
     }
 
     private String resolveToken(HttpServletRequest request) {
