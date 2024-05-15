@@ -23,9 +23,6 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain)
             throws IOException, ServletException {
 
-//        HttpServletRequest request = (HttpServletRequest) req;
-//        HttpServletResponse response = (HttpServletResponse) res;
-
         try {
             String authToken = resolveToken((HttpServletRequest) request);
 
@@ -59,5 +56,4 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
         // 실제 로직은 프로젝트의 요구사항과 JWT 라이브러리에 따라 다를 수 있습니다.
         return true;
     }
-
 }

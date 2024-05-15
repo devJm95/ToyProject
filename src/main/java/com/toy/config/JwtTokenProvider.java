@@ -33,6 +33,7 @@ public class JwtTokenProvider {
         this.jwtExpirationMs = jwtExpirationMs;
     }
 
+
     public String generateToken(Authentication authentication) {
         Date now = new Date();
         Date expiredDate = new Date(now.getTime() + jwtExpirationMs);
@@ -48,9 +49,8 @@ public class JwtTokenProvider {
                 .setExpiration(expiredDate)
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
-    }
 
-    // 로그인 시
+      // 로그인 시
 //    public String createAccessToken(Long userid) {
 //        // JWT payload 에 저장되는 정보단위, 보통 여기서 user를 식별하는 값을 넣는다.
 //        Claims claims = Jwts.claims().setSubject(userid.toString());
