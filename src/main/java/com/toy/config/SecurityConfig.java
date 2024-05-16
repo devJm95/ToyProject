@@ -42,21 +42,20 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .cors(withDefaults())
-                .authorizeRequests(
-                        (auth) -> auth
-                            .requestMatchers("/board/**").authenticated()
-                            .requestMatchers("/login/**").permitAll()
-//                            .requestMatchers("/**").permitAll()
-//                            .anyRequest().authenticated()
-                            .anyRequest().permitAll()
-                )
-//                .oauth2Login(Customizer.withDefaults())
-                .oauth2Login((oauth2) -> oauth2.
-                        userInfoEndpoint(userInfo -> userInfo
-                                .userService(oAuth2Service))
-                        .successHandler(oAuth2SuccessHandler))
+                .authorizeRequests((auth) -> auth
+                        .requestMatchers("/board/**").authenticated()
+                        .requestMatchers("/login/**").permitAll()
+//                      .requestMatchers("/**").permitAll()
+//                      .anyRequest().authenticated()
+                        .anyRequest().permitAll())
+//              .oauth2Login(Customizer.withDefaults())
+                .oauth2Login((oauth2) -> oauth2
+                        .userInfoEndpoint(userInfo -> userInfo
+                            .userService(oAuth2Service))
+                            .successHandler(oAuth2SuccessHandler))
 //                .logout((logout) -> logout.logoutSuccessUrl("/"))
-                .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .sessionManagement((session) -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .formLogin((formLogin) -> formLogin.disable())
                 .csrf((csrf) -> csrf.disable())
                 .httpBasic((httpBasic) -> httpBasic.disable())

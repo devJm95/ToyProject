@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 @RequiredArgsConstructor
@@ -44,7 +43,7 @@ public class OAuth2Service implements OAuth2UserService<OAuth2UserRequest, OAuth
         JoinRequest join = OAuthAttributes.extract(registrationId, attributes);
         join.setProvider(registrationId);
 
-//        updateOrSaveUser(join);
+        updateOrSaveUser(join);
 
         return new DefaultOAuth2User(
                 Collections.singleton(new SimpleGrantedAuthority("USER")),
@@ -61,17 +60,4 @@ public class OAuth2Service implements OAuth2UserService<OAuth2UserRequest, OAuth
         return userRepository.save(user);
     }
 
-//    public Map getCustomAttribute(String registrationId,
-//                                  String userNameAttributeName,
-//                                  Map<String, Object> attributes,
-//                                  JoinRequest join) {
-//        Map<String, Object> customAttribute = new ConcurrentHashMap<>();
-//
-//        customAttribute.put(userNameAttributeName, attributes.get(userNameAttributeName));
-//        customAttribute.put("provider", registrationId);
-//        customAttribute.put("name", join.getUserNm());
-//        customAttribute.put("email", join.getEmail());
-//
-//        return customAttribute;
-//    }
 }

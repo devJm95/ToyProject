@@ -49,11 +49,4 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
         }
         return null;
     }
-
-    private boolean validateToken(String token) {
-        // 여기에 토큰의 유효성을 검사하는 로직을 구현합니다.
-        // 예를 들어, 토큰의 서명을 확인하고 만료되었는지 검사할 수 있습니다.
-        // 실제 로직은 프로젝트의 요구사항과 JWT 라이브러리에 따라 다를 수 있습니다.
-        return true;
-    }
 }

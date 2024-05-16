@@ -33,7 +33,6 @@ public class JwtTokenProvider {
         this.jwtExpirationMs = jwtExpirationMs;
     }
 
-
     public String generateToken(Authentication authentication) {
         Date now = new Date();
         Date expiredDate = new Date(now.getTime() + jwtExpirationMs);
@@ -49,54 +48,8 @@ public class JwtTokenProvider {
                 .setExpiration(expiredDate)
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
-
-      // 로그인 시
-//    public String createAccessToken(Long userid) {
-//        // JWT payload 에 저장되는 정보단위, 보통 여기서 user를 식별하는 값을 넣는다.
-//        Claims claims = Jwts.claims().setSubject(userid.toString());
-//
-//        Date now = new Date();
-//        return Jwts.builder()
-//                .setClaims(claims) // 정보 저장
-//                .setIssuedAt(now) // 토큰 발행 시간 정보
-//                .setExpiration(new Date(now.getTime() + jwtExpirationMs)) // set Expire Time
-//                .signWith(SignatureAlgorithm.HS256, jwtSecret)  // 사용할 암호화 알고리즘과
-//                // signature 에 들어갈 secret값 세팅
-//                .compact();
-//    }
-
-
-    /*
-    public JwtTotenDTO generateToken(Authentication authentication) {
-        // 권한 가져오기
-        String authorities = authentication.getAuthorities().stream()
-                .map(authority -> authority.getAuthority())
-                .collect(Collectors.joining(","));
-
-        long now = (new Date()).getTime();
-
-        // Access Token 생성
-        Date accessTokenExpiresIn = new Date(now + 86400000);
-        String accessToken = Jwts.builder()
-                .setSubject(authentication.getName())
-                .claim("auth", authorities)
-                .setExpiration(accessTokenExpiresIn)
-                .signWith(SignatureAlgorithm.HS512, jwtSecret)
-                .compact();
-
-        // Refresh Token 생성
-        String refreshToken = Jwts.builder()
-                .setExpiration(new Date(now + 86400000))
-                .signWith(SignatureAlgorithm.HS512, jwtSecret)
-                .compact();
-
-        return JwtTotenDTO.builder()
-                .grantType("Bearer")
-                .accessToken(accessToken)
-                .refreshToken(refreshToken)
-                .build();
     }
-*/
+
     public boolean validateToken(String authToken) {
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
