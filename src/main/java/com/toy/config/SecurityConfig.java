@@ -45,6 +45,7 @@ public class SecurityConfig {
                 .authorizeRequests((auth) -> auth
                         .requestMatchers("/board/**").authenticated()
                         .requestMatchers("/login/**").permitAll()
+                        .requestMatchers("/api-docs/**").permitAll()
 //                      .requestMatchers("/**").permitAll()
 //                      .anyRequest().authenticated()
                         .anyRequest().permitAll())

@@ -28,6 +28,14 @@ spring:
           algorithm: HS512
           #issuer-uri: https://localhost:8080
 
+#Swagger
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    #groups-order: ASC
+
 logging:
   level:
     org:
