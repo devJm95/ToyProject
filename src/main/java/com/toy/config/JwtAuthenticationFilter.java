@@ -30,15 +30,14 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
                 // 유효한 토큰이면 SecurityContext에 인증 정보 설정
                 Authentication authentication = jwtTokenProvider.getAuthentication(authToken);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
-                filterChain.doFilter(request, response);
             }
-            filterChain.doFilter(request, response);
         } catch (ExpiredJwtException | UnsupportedJwtException | MalformedJwtException | SignatureException ex) {
             // 유효하지 않은 토큰 예외 처리
             // 여기서는 예외를 캐치하고 토큰이 유효하지 않다고 응답할 수 있습니다.
             ((HttpServletResponse) response).setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
+
         filterChain.doFilter(request, response);
     }
 

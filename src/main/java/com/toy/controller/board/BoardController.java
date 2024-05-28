@@ -8,6 +8,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,6 +25,9 @@ public class BoardController {
     @PostMapping
     @Operation(summary = "Board 등록", description = "게시판 정보를 등록합니다")
     public ResponseEntity insertBoard(@RequestBody BoardRequestDTO boardRequestDto){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName(); // 인증된 사용자의 이름을 가져옴
+        boardRequestDto.setUserId(username); // 사용자 아이디 대신 이름으로
         Board result = boardService.insertBoard(boardRequestDto);
         return ResponseEntity.ok().body(result);
     }

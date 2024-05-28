@@ -18,5 +18,4 @@ public class BoardRequestDTO {
         private String content;
         private LocalDateTime cDate;
         private LocalDateTime uDate;
-
 }

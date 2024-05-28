@@ -22,6 +22,7 @@ public class Board {
     public static Board toEntity(BoardRequestDTO boardRequestDTO){
         return Board.builder()
                 .boardId(boardRequestDTO.getBoardId())
+                .userId(boardRequestDTO.getUserId())
                 .title(boardRequestDTO.getTitle())
                 .content(boardRequestDTO.getContent())
                 .build();

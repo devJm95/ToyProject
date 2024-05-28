@@ -8,11 +8,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -41,8 +43,12 @@ public class JwtTokenProvider {
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining());
 
+//        Map<String, Object> attributes = (Map<String, Object>) authentication.getPrincipal();
+        OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+
         return Jwts.builder()
-                .setSubject(authentication.getName())
+                .setSubject((String) oAuth2User.getAttributes().get("name"))
+//                .setSubject(authentication.getName())
                 .claim(KEY_ROLE, authorities)
                 .setIssuedAt(now)
                 .setExpiration(expiredDate)
