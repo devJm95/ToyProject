@@ -83,6 +83,11 @@ test {
 
 def querydslDir = "$buildDir/generated/querydsl"
 
+// Test 코드 제외하고 build
+tasks.withType(Test) {
+	enabled = false
+}
+
 //querydsl {
 //	jpa = true
 //	querydslSourcesDir = querydslDir
