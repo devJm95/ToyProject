@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  web:
+    image: devjm95/web-app:latest
+    ports:
+      - "80:80"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_HOST=toy
+      - DATABASE_USER=admin
+      - DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}
+
+  db:
+    image: mysql:5.7
+    volumes:
+      - db_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
+
+volumes:
+  db_data:
