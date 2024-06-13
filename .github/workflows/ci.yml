@@ -59,10 +59,25 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
+            echo "Pulling Docker image..."
             docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_IMAGE_PROD }}
-            docker stop server
-            docker rm server
+            if [ $? -ne 0 ]; then
+             echo "Docker image pull failed"
+             exit 1
+            fi
+
+            echo "Stopping existing container..."
+            docker stop server || true
+
+            echo "Removing existing container..."
+            docker rm server || true
+
+            echo "Running new container..."
             docker run -d --rm --name server -p 8080:8080 ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_IMAGE_PROD }}
+            if [ $? -ne 0 ]; then
+             echo "Docker container run failed"
+             exit 1
+            fi
 
       - name: sleep for a few seconds
         uses: GuillaumeFalourd/wait-sleep-action@v1
