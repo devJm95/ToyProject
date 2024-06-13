@@ -64,7 +64,7 @@ jobs:
             docker rm server
             docker run -d --rm --name server -p 8080:8080 ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_IMAGE_PROD }}
 
-      - name: sleep for a seconds
+      - name: sleep for a few seconds
         uses: GuillaumeFalourd/wait-sleep-action@v1
         with:
           time: '5'
