@@ -1,14 +1,15 @@
 spring:
   datasource:
-    url: jdbc:mariadb://localhost:3306/querydsl
-    username: root
-    password: admin
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+    driver-class-name: ${DATABASE_PLATFORM}
   jpa:
     show-sql : true
     hibernate:
       format_sql : true
       ddl-auto: update
-    database-platform: org.hibernate.dialect.MariaDBDialect
+    database-platform: ${DATABASE_PLATFORM}
   profiles:
     include: oauth
   security:
@@ -19,7 +20,7 @@ spring:
             client-id: ${client.id}
             client-secret: ${client.secret}
             scope: profile,email
-            redirect-uri: "http://localhost:8080/login/oauth2/code/google"
+            redirect-uri: ${redirect_uri}
         jwt:
           secret: ${jwt.secret}
           expiration: 86400000 # JWT 토큰의 유효 기간 (밀리초 단위) 24시간
