@@ -3,13 +3,13 @@ spring:
     url: ${DATABASE_URL}
     username: ${DATABASE_USERNAME}
     password: ${DATABASE_PASSWORD}
-    driver-class-name: ${DATABASE_PLATFORM}
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     show-sql : true
     hibernate:
       format_sql : true
       ddl-auto: update
-    database-platform: ${DATABASE_PLATFORM}
+    database-platform: org.hibernate.dialect.MySQL8Dialect
   profiles:
     include: oauth
   security:

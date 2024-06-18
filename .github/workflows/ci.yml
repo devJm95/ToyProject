@@ -74,11 +74,12 @@ jobs:
 
             echo "Running new container..."
             docker run -d --rm --name server -p 8080:8080 \
+              -e SPRING_PROFILES_ACTIVE=prod \
               -e DATABASE_URL=${{ secrets.DATABASE_URL }} \
               -e DATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }} \
               -e DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }} \
-              -e DATABASE_DRIVER=${{ secrets.DATABASE_PLATFORM }} \
-              -e HIBERNATE_DIALECT=${{ secrets.DATABASE_PLATFORM }} \
+              -e DATABASE_DRIVER=com.mysql.cj.jdbc.Driver \
+              -e HIBERNATE_DIALECT=org.hibernate.dialect.MySQLDialect \
               -e GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }} \
               -e GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }} \
               -e JWT_SECRET=${{ secrets.JWT_SECRET }} \

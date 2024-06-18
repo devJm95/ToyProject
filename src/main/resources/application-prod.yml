@@ -1,46 +1,8 @@
 spring:
   datasource:
-    url: ${rds.url}
-    username: ${rds.name}
-    password: ${rds.pw}
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
-    show-sql : true
-    hibernate:
-      format_sql : true
-      ddl-auto: update
-    database-platform: org.hibernate.dialect.MySQL8Dialect
-    profiles:
-    include: oauth
-  security:
-    oauth2:
-      client:
-        registration:
-          google:
-            client-id: ${client.id}
-            client-secret: ${client.secret}
-            scope: profile,email
-            redirect-uri: "http://localhost:8080/login/oauth2/code/google"
-            #EC2 ??? ??
-        jwt:
-          secret: ${jwt.secret}
-          expiration: 86400000 # JWT ??? ?? ?? (??? ??) 24??
-          token-prefix: Bearer  # ??? ?? ??
-          header: Authorization # ??? ??? ??? ?
-          algorithm: HS512
-          #issuer-uri: https://localhost:8080
-
-#Swagger
-springdoc:
-  api-docs:
-    path: /v3/api-docs
-  swagger-ui:
-    path: /swagger-ui.html
-    #groups-order: ASC
-
-logging:
-  level:
-    org:
-      hibernate:
-        type:
-          descriptor:
-            sql: trace
+    database-platform: org.hibernate.dialect.MySQLDialect
