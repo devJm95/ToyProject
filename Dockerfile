@@ -1,4 +1,5 @@
 FROM amazoncorretto:17
 ARG JAR_FILE=build/libs/*.jar
 COPY ${JAR_FILE} toy.jar
-ENTRYPOINT ["java","-jar","/toy.jar"]
+ENTRYPOINT ["sh", "-c", "echo DATABASE_URL=$DATABASE_URL && echo DATABASE_USERNAME=$DATABASE_USERNAME && echo DATABASE_PASSWORD=$DATABASE_PASSWORD && echo DATABASE_DRIVER=$DATABASE_DRIVER && echo HIBERNATE_DIALECT=$HIBERNATE_DIALECT && java -jar /toy.jar"]
+#ENTRYPOINT ["java","-jar","/toy.jar"]
