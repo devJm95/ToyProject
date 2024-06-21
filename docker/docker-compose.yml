@@ -8,8 +8,8 @@ services:
     depends_on:
       - db
     environment:
-      - DATABASE_HOST=toy
-      - DATABASE_USER=admin
+      - DATABASE_HOST=${{ secrets.DATABASE_URL }}
+      - DATABASE_USER=${{ secrets.DATABASE_USERNAME }}
       - DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}
 
   db:
