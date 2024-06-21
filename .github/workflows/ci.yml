@@ -51,6 +51,12 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - name: Create .env file
+        run: |
+          echo DATABASE_URL=${{ secrets.DATABASE_URL }} >> .env
+          echo DATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }} >> .env
+          echo DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }} >> .env
+
       - name: deploy to master
         uses: appleboy/ssh-action@master
         if: contains(github.ref, 'master')
@@ -89,15 +95,6 @@ jobs:
              echo "Docker container run failed"
              exit 1
             fi
-
-      - name: Check secrets (safely)
-        run: |
-          echo "Checking secrets..."
-          if [ -z "${{ secrets.DATABASE_URL }}" ]; then echo "DATABASE_URL is not set"; else echo "DATABASE_URL is set"; fi
-          if [ -z "${{ secrets.DATABASE_USERNAME }}" ]; then echo "DATABASE_USERNAME is not set"; else echo "DATABASE_USERNAME is set"; fi
-          if [ -z "${{ secrets.DATABASE_PASSWORD }}" ]; then echo "DATABASE_PASSWORD is not set"; else echo "DATABASE_PASSWORD is set"; fi
-          if [ -z "${{ secrets.DATABASE_DRIVER }}" ]; then echo "DATABASE_DRIVER is not set"; else echo "DATABASE_DRIVER is set"; fi
-          if [ -z "${{ secrets.HIBERNATE_DIALECT }}" ]; then echo "HIBERNATE_DIALECT is not set"; else echo "HIBERNATE_DIALECT is set"; fi
 
       - name: sleep for a few seconds
         uses: GuillaumeFalourd/wait-sleep-action@v1
