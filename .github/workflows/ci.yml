@@ -25,6 +25,12 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
+      - name: Create directory for resources
+        run: mkdir -p ./src/main/resources
+
+      - name: Create application.yml file from secret
+        run: echo "${{ secrets.APPLICATION }}" > ./src/main/resources/application.yml
+
       - name: Build with Gradle
         run: ./gradlew build
 
@@ -47,16 +53,13 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/my-repo:latest
 
+      - name: Delete application.yml file
+        run: rm ./src/main/resources/application.yml
+
   deploy:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Create .env file
-        run: |
-          echo DATABASE_URL=${{ secrets.DATABASE_URL }} >> .env
-          echo DATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }} >> .env
-          echo DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }} >> .env
-
       - name: deploy to master
         uses: appleboy/ssh-action@master
         if: contains(github.ref, 'master')
