@@ -25,6 +25,9 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
+      - name: Delete application.yml file
+        run: rm ./src/main/resources/application.yml
+
       - name: Create directory for resources
         run: mkdir -p ./src/main/resources
 
@@ -52,9 +55,6 @@ jobs:
           context: .
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/my-repo:latest
-
-      - name: Delete application.yml file
-        run: rm ./src/main/resources/application.yml
 
   deploy:
     needs: build
