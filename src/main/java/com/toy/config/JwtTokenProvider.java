@@ -24,13 +24,13 @@ public class JwtTokenProvider {
     private static String jwtSecret;
     private static final String KEY_ROLE = "role";
 
-    @Value("${JWT_SECRET}")
+    @Value("${spring.security.oauth2.client.jwt.secret}")
     public void setJwtSecret(String jwtSecret) {
         this.jwtSecret = jwtSecret;
     }
 
     private static int jwtExpirationMs;
-    @Value("${jwt.expiration}")
+    @Value("${spring.security.oauth2.client.jwt.expiration}")
     public void setJwtExpirationMs(int jwtExpirationMs) {
         this.jwtExpirationMs = jwtExpirationMs;
     }
