@@ -22,7 +22,7 @@ spring:
             scope: profile,email
             redirect-uri: ${redirect_uri}
         jwt:
-          secret: ${jwt.secret}
+          secret: ${JWT_SECRET}
           expiration: 86400000 # JWT 토큰의 유효 기간 (밀리초 단위) 24시간
           token-prefix: Bearer  # 토큰의 헤더 이름
           header: Authorization # 토큰의 헤더에 저장될 키

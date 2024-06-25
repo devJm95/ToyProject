@@ -24,7 +24,7 @@ public class JwtTokenProvider {
     private static String jwtSecret;
     private static final String KEY_ROLE = "role";
 
-    @Value("${jwt.secret}")
+    @Value("${JWT_SECRET}")
     public void setJwtSecret(String jwtSecret) {
         this.jwtSecret = jwtSecret;
     }
